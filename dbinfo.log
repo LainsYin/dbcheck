@@ -1,6 +1,0 @@
-[2015-12-02 15:42:04,065 - 4444   - MainThread - INFO    ]	{'table': u'actor_sex', 'db': 'yiqiding_ktv', 'err': 'More than a field', 'field': u'id'}
-[2015-12-02 15:42:04,065 - 4444   - MainThread - INFO    ]	{'table': u'actor_sex', 'db': 'yiqiding_ktv', 'err': 'More than a field', 'field': u'name'}
-[2015-12-02 15:42:04,065 - 4444   - MainThread - INFO    ]	{'table': u'actor_sex', 'db': 'yiqiding_ktv', 'err': 'More than a field', 'field': u'detail'}
-[2015-12-02 15:42:04,182 - 4444   - MainThread - INFO    ]	{'table': u'box_status', 'db': 'yiqiding_info', 'err': ' Missing field ', 'field': u'keep'}
-[2015-12-02 15:42:05,248 - 4444   - MainThread - INFO    ]	{'table': u'v_totalbill', 'db': 'yqcchaindb', 'err': ' Missing field ', 'field': u'TotalBill_Comments'}
-[2015-12-02 15:42:05,254 - 4444   - MainThread - INFO    ]	{'db': 'yqcdb', 'err': ' Missing db '}

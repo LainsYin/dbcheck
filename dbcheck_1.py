@@ -16,26 +16,37 @@ class DbCheck:
         self.session = session
         self.log_name = log_name
         self.json = json.load(file(json_file))
-        self.database_list = []
+        self.database_list = {}
+        self.db_check_list = []
+
         self.check_init()
+        self.check_database()
 
     def check_init(self):
-        for lists in self.execute_sql("SHOW  DATABASES;"):
-            self.database_list.append(lists[0])
-
         for db_list in self.json:
-            # db_json = json.loads(db_list)
             db_name = db_list.get('database')
             tables = db_list.get('table')
-            self.check_database(db_name, tables)
 
-    def check_database(self, db_name, tables_list):
-        logging.info('检测{}数据库...'.format(db_name))
-        if db_name not in self.database_list:
-            logging.debug('数据库不存在:{}'.format(db_name))
-        else:
-            self.execute_sql('USE {};'.format(db_name))
-            self.check_table(tables_list)
+            table_list = []
+            for table in tables:
+                field_list = {}
+                table_name = table.get('table')
+                field_list[table_name] = table.get('field')
+                table_list.append(field_list)
+
+            self.database_list[db_name] = table_list
+
+    def check_database(self):
+        for lists in self.execute_sql("SHOW  DATABASES;"):
+            self.db_check_list.append(lists[0])
+
+        for db_name in self.database_list.keys():
+            logging.info('检测{}数据库...'.format(db_name))
+            if db_name not in self.db_check_list:
+                logging.debug('数据库不存在:{}'.format(db_name))
+            else:
+                self.execute_sql('USE {};'.format(db_name))
+                self.check_table(self.database_list.get(db_name))
 
     def check_table(self, tables_list):
         tables = []
@@ -44,9 +55,8 @@ class DbCheck:
 
         table_field = {}
         for table in tables_list:
-            # table_json = json.loads(table)
-            table_name = table.get('table')
-            field_list = table.get('field')
+            table_name = table.keys()[0]
+            field_list = table.get(table_name)
             table_field[table_name] = field_list
 
         for name in table_field.keys():
